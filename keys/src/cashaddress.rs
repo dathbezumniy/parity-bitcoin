@@ -15,6 +15,7 @@ pub enum AddressType {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum NetworkPrefix {
+    SimpleLedger,
     BitcoinCash,
     BchTest,
     BchReg,
@@ -23,6 +24,7 @@ pub enum NetworkPrefix {
 impl fmt::Display for NetworkPrefix {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let as_str = match self {
+            NetworkPrefix::SimpleLedger => "simpleledger",
             NetworkPrefix::BitcoinCash => "bitcoincash",
             NetworkPrefix::BchTest => "bchtest",
             NetworkPrefix::BchReg => "bchreg",
@@ -37,6 +39,7 @@ impl FromStr for NetworkPrefix {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let s = s.to_lowercase();
         let prefix = match s.as_str() {
+            "simpleledger" => NetworkPrefix::SimpleLedger,
             "bitcoincash" => NetworkPrefix::BitcoinCash,
             "bchtest" => NetworkPrefix::BchTest,
             "bchreg" => NetworkPrefix::BchReg,
